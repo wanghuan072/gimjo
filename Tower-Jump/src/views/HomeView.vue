@@ -3,8 +3,8 @@
     <header class="site-header">
       <div class="container">
         <div class="logo">
-          <img src="/images/logo.webp" alt="Tower Jump Logo" class="logo-image" />
-          <span class="logo-text">Tower Jump</span>
+          <img src="/images/logo.webp" alt="Gimjo Logo" class="logo-image" />
+          <span class="logo-text">Gimjo</span>
         </div>
         <nav class="nav" aria-label="Main navigation">
           <a class="nav-link" href="/">Home</a>
@@ -185,11 +185,11 @@
           <!-- 左侧：Logo和简介 -->
           <div class="footer-brand">
             <div class="footer-logo-section">
-              <img src="/images/logo.webp" alt="Tower Jump Logo" class="footer-logo" />
+              <img src="/images/logo.webp" alt="Gimjo Logo" class="footer-logo" />
               <div class="footer-brand-text">
-                <h3 class="footer-brand-title">Tower Jump</h3>
+                <h3 class="footer-brand-title">Gimjo</h3>
                 <p class="footer-description">
-                  Play Tower Jump and other exciting jumping games instantly in your browser. No
+                  Play Gimjo and other exciting jumping games instantly in your browser. No
                   download required! Lightweight, fast, and fun for everyone.
                 </p>
               </div>
