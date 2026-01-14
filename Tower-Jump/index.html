@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 基础SEO标签 - 这些会被动态更新 -->
+  <title>Tower Jump - Play Instantly Online</title>
+  <meta name="description"
+    content="Play Tower Jump and other exciting jumping games instantly in your browser. No download required!">
+  <meta name="keywords" content="Tower Jump, jumping game, online game, casual game, HTML5 game, browser game">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://gimjo.com/" />
+
+  <!-- Open Graph标签 -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Tower Jump">
+  <meta property="og:title" content="Tower Jump - Play Instantly Online">
+  <meta property="og:description"
+    content="Play exciting games instantly in your browser. No download required!">
+  <meta property="og:url" content="https://gimjo.com/">
+  <meta property="og:image" content="https://gimjo.com/images/logo.webp">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card标签 -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@towerjump">
+  <meta name="twitter:title" content="Tower Jump - Play Instantly Online">
+  <meta name="twitter:description"
+    content="Play exciting games instantly in your browser. No download required!">
+  <meta name="twitter:image" content="https://gimjo.com/images/logo.webp">
+
+  <!-- 其他标签 -->
+  <meta name="theme-color" content="#0f0f14">
+  <meta name="author" content="Tower Jump">
+  <meta name="generator" content="Vue.js">
+
+  <!-- 延迟加载第三方脚本 -->
+  <script>
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        // 延迟加载Google Analytics
+        const gtagScript = document.createElement('script');
+        gtagScript.async = true;
+        gtagScript.defer = true;
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-9GQ7DVWJFE';
+        document.head.appendChild(gtagScript);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9GQ7DVWJFE');
+
+
+        // 延迟加载广告
+        const adsScript = document.createElement('script');
+        adsScript.async = true;
+        adsScript.defer = true;
+        adsScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3735036857851262';
+        adsScript.crossOrigin = 'anonymous';
+        document.head.appendChild(adsScript);
+      }, 3000);
+    });
+  </script>
+
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
