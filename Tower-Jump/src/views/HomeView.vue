@@ -123,16 +123,12 @@
             </section>
 
             <!-- ADX 广告代码 - 1 -->
-            <div
-              style="margin: 16px 0; display: flex; justify-content: center; max-width: 100%; overflow-x: auto"
-            >
               <ins
                 class="adsbygoogle"
                 style="display: inline-block; width: 970px; max-width: 100%; height: 250px"
                 data-ad-client="ca-pub-9435047454967498"
                 data-tag-src="gamtg"
               ></ins>
-            </div>
 
             <!-- Hot Games 板块 -->
             <section v-if="hotGames.length > 0" class="hot-games-section">
@@ -196,9 +192,6 @@
         </section>
 
         <!-- ADX 广告代码 - 2 -->
-        <div
-          style="margin: 16px 0; display: flex; justify-content: center; max-width: 100%; overflow-x: auto"
-        >
           <ins
             class="adsbygoogle"
             style="display: inline-block; width: 970px; max-width: 100%; height: 90px"
@@ -206,7 +199,6 @@
             data-ad-slot="gimjo-ban01"
             data-tag-src="gamtg"
           ></ins>
-        </div>
 
         <section id="games" class="section-games">
           <h2 class="section-title">More Games</h2>
