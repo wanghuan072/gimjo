@@ -122,13 +122,6 @@
               </div>
             </section>
 
-            <!-- GAM 位1 body：/23346398271/ban1 — 与 index.html 第一段独立对应 -->
-            <div
-              ref="gptBannerRoot"
-              id="div-gpt-ad-1774496814316-0"
-              style="min-width: 320px; min-height: 50px"
-            ></div>
-
             <!-- Hot Games 板块 -->
             <section v-if="hotGames.length > 0" class="hot-games-section">
               <h2 class="section-title">Hot Games</h2>
@@ -189,13 +182,6 @@
 
           </aside>
         </section>
-
-        <!-- GAM 位2 body：/23346398271/ban1/ban1.1 — 与 index.html 第二段独立对应 -->
-        <div
-          ref="gptLeaderboardRoot"
-          id="div-gpt-ad-1774506633150-0"
-          style="min-width: 970px; min-height: 250px"
-        ></div>
 
         <section id="games" class="section-games">
           <h2 class="section-title">More Games</h2>
@@ -461,33 +447,7 @@ watch(
   }
 )
 
-// ---------- GAM 广告位 1（独立：不共用函数/常量，与位 2 互不影响）----------
-const gptBannerRoot = ref(null)
 
-const mountGptBan1BodyScript = () => {
-  const root = gptBannerRoot.value
-  if (!root || root.querySelector('script[data-gam-slot="ban1"]')) return
-  const s = document.createElement('script')
-  s.setAttribute('data-gam-slot', 'ban1')
-  s.textContent =
-    "googletag.cmd.push(function () { googletag.display('div-gpt-ad-1774496814316-0'); });"
-  root.appendChild(s)
-}
-
-// ---------- GAM 广告位 2（独立：与位 1 代码重复是故意的，便于分别拷贝、修改）----------
-const gptLeaderboardRoot = ref(null)
-
-const mountGptBan11BodyScript = () => {
-  const root = gptLeaderboardRoot.value
-  if (!root || root.querySelector('script[data-gam-slot="ban1-1"]')) return
-  const s = document.createElement('script')
-  s.setAttribute('data-gam-slot', 'ban1-1')
-  s.textContent =
-    "googletag.cmd.push(function () { googletag.display('div-gpt-ad-1774506633150-0'); });"
-  root.appendChild(s)
-}
-
-// 
 // 首页广告位：
 const loadAds = () => {
   try {
@@ -500,15 +460,6 @@ const loadAds = () => {
 onMounted(async () => {
   // 初始化游戏
   initializeGame()
-
-
-  // GAM：两个版位各自注入 body 脚本，互不调用同一封装
-  nextTick(() => {
-    nextTick(() => {
-      mountGptBan1BodyScript()
-      mountGptBan11BodyScript()
-    })
-  })
 
   loadAds()
 })
