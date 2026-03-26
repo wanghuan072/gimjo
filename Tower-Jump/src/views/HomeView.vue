@@ -122,8 +122,12 @@
               </div>
             </section>
 
-            <!-- /23346398271/ca-pub-9435047454967498-tag — Hot Games 上方（body 与后台一致，挂载后注入 display） -->
-            <div ref="gptHotGamesAboveRoot" id="div-gpt-ad-1774516777032-0"></div>
+            <!-- /23346398271/ca-pub-9435047454967498-tag/gimjo-z-ban02 — Hot Games 上方，970×250 -->
+            <div
+              ref="gptHotGamesZBan02Root"
+              id="div-gpt-ad-1774521378354-0"
+              style="min-width: 970px; min-height: 250px"
+            ></div>
 
             <!-- Hot Games 板块 -->
             <section v-if="hotGames.length > 0" class="hot-games-section">
@@ -465,17 +469,16 @@ watch(
   }
 )
 
+// GAM：gimjo-z-ban02，970×250，Hot Games 上方（head 内 defineSlot 与此 id 对应）
+const GPT_HOT_Z_BAN02_DIV_ID = 'div-gpt-ad-1774521378354-0'
+const gptHotGamesZBan02Root = ref(null)
 
-// GAM：Hot Games 上方 fluid 位（head 已在 index.html defineSlot + enableServices）
-const GPT_HOT_GAMES_DIV_ID = 'div-gpt-ad-1774516777032-0'
-const gptHotGamesAboveRoot = ref(null)
-
-const mountGptHotGamesAboveDisplay = () => {
-  const root = gptHotGamesAboveRoot.value
-  if (!root || root.querySelector(`script[data-gpt-inline="${GPT_HOT_GAMES_DIV_ID}"]`)) return
+const mountGptHotGamesZBan02Display = () => {
+  const root = gptHotGamesZBan02Root.value
+  if (!root || root.querySelector(`script[data-gpt-inline="${GPT_HOT_Z_BAN02_DIV_ID}"]`)) return
   const s = document.createElement('script')
-  s.setAttribute('data-gpt-inline', GPT_HOT_GAMES_DIV_ID)
-  s.textContent = `googletag.cmd.push(function () { googletag.display('${GPT_HOT_GAMES_DIV_ID}'); });`
+  s.setAttribute('data-gpt-inline', GPT_HOT_Z_BAN02_DIV_ID)
+  s.textContent = `googletag.cmd.push(function () { googletag.display('${GPT_HOT_Z_BAN02_DIV_ID}'); });`
   root.appendChild(s)
 }
 
@@ -492,7 +495,6 @@ const mountGptNewGamesBelowDisplay = () => {
   root.appendChild(s)
 }
 
- // 
 // const GPT_BAN1_DIV_ID = 'div-gpt-ad-1774519660057-0'
 // const gptBan1MoreGamesAboveRoot = ref(null)
 
@@ -520,9 +522,9 @@ onMounted(async () => {
 
   await nextTick()
   nextTick(() => {
-    mountGptHotGamesAboveDisplay()
+    mountGptHotGamesZBan02Display()
     mountGptNewGamesBelowDisplay()
-    // mountGptBan1Display() 
+    // mountGptBan1Display()
   })
   loadAds()
 })
