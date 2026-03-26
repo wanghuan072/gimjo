@@ -122,13 +122,8 @@
               </div>
             </section>
 
-            <!-- ADX 广告代码 - 1 -->
-              <ins
-                class="adsbygoogle"
-                style="display: inline-block; width: 970px; max-width: 100%; height: 250px"
-                data-ad-client="ca-pub-9435047454967498"
-                data-tag-src="gamtg"
-              ></ins>
+            <!-- /23346398271/ca-pub-9435047454967498-tag — Hot Games 上方（body 与后台一致，挂载后注入 display） -->
+            <div ref="gptHotGamesAboveRoot" id="div-gpt-ad-1774516777032-0"></div>
 
             <!-- Hot Games 板块 -->
             <section v-if="hotGames.length > 0" class="hot-games-section">
@@ -190,15 +185,6 @@
 
           </aside>
         </section>
-
-        <!-- ADX 广告代码 - 2 -->
-          <ins
-            class="adsbygoogle"
-            style="display: inline-block; width: 970px; max-width: 100%; height: 90px"
-            data-ad-client="ca-pub-9435047454967498"
-            data-ad-slot="gimjo-ban01"
-            data-tag-src="gamtg"
-          ></ins>
 
         <section id="games" class="section-games">
           <h2 class="section-title">More Games</h2>
@@ -407,7 +393,6 @@ function onFrameLoad(event) {
   }
 }
 
-
 // 滚动到指定部分
 const prefersReducedMotion =
   typeof window !== 'undefined' && window.matchMedia
@@ -465,16 +450,20 @@ watch(
 )
 
 
-// Hot Games 上方：adsbygoogle_direct（DOM 中第一个 adsbygoogle，须最先 push）
-const loadHotGamesAboveDirectAd = () => {
-  try {
-    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-  } catch (e) {
-    console.error('AdSense direct (above Hot Games) push failed:', e)
-  }
+// GAM：Hot Games 上方 fluid 位（head 已在 index.html defineSlot + enableServices）
+const GPT_HOT_GAMES_DIV_ID = 'div-gpt-ad-1774516777032-0'
+const gptHotGamesAboveRoot = ref(null)
+
+const mountGptHotGamesAboveDisplay = () => {
+  const root = gptHotGamesAboveRoot.value
+  if (!root || root.querySelector(`script[data-gpt-inline="${GPT_HOT_GAMES_DIV_ID}"]`)) return
+  const s = document.createElement('script')
+  s.setAttribute('data-gpt-inline', GPT_HOT_GAMES_DIV_ID)
+  s.textContent = `googletag.cmd.push(function () { googletag.display('${GPT_HOT_GAMES_DIV_ID}'); });`
+  root.appendChild(s)
 }
 
-// 侧栏等：沿用 adsbygoogle.js 的第二个 ins，第二次 push
+// 谷歌 ads 侧栏
 const loadAds = () => {
   try {
     ;(window.adsbygoogle = window.adsbygoogle || []).push({})
@@ -483,22 +472,14 @@ const loadAds = () => {
   }
 }
 
-// More Games 上方横幅 gimjo-ban01（与页面中第三个 adsbygoogle 顺序对应）
-const loadMoreGamesAboveBan01 = () => {
-  try {
-    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-  } catch (e) {
-    console.error('AdSense direct (above More Games, gimjo-ban01) push failed:', e)
-  }
-}
-
 onMounted(async () => {
   initializeGame()
 
   await nextTick()
+  nextTick(() => {
+    mountGptHotGamesAboveDisplay()
+  })
   loadAds()
-  loadHotGamesAboveDirectAd()
-  loadMoreGamesAboveBan01()
 })
 
 onUnmounted(() => {
