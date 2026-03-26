@@ -148,6 +148,17 @@
               </div>
             </section>
 
+            <aside v-if="!isMobile">
+              <ins
+                class="adsbygoogle"
+                style="display: block"
+                data-ad-client="ca-pub-3735036857851262"
+                data-ad-slot="9781464393"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
+            </aside>
+
             <section id="about" ref="aboutRef" class="about-section">
               <h2 class="section-title">Game Info: {{ currentGame?.title || 'Tower Jump' }}</h2>
               <div class="about-content" v-html="currentGame?.detailsHtml"></div>
@@ -455,14 +466,27 @@ const mountGptDisplayScriptInsideDiv = () => {
   root.appendChild(s)
 }
 
+// 
+// 首页广告位：
+const loadAds = () => {
+  try {
+    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+  } catch (e) {
+    console.error('AdSense push failed:', e)
+  }
+}
+
 onMounted(async () => {
   // 初始化游戏
   initializeGame()
+
 
   // 加载广告
   nextTick(() => {
     mountGptDisplayScriptInsideDiv()
   })
+
+  loadAds()
 })
 
 onUnmounted(() => {
