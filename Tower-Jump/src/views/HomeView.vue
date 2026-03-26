@@ -122,7 +122,7 @@
               </div>
             </section>
 
-            <!-- AdSense Direct：在 Hot Games 上方（与后台代码一致） -->
+            <!-- ADX 广告代码 - 1 -->
             <div
               style="margin: 16px 0; display: flex; justify-content: center; max-width: 100%; overflow-x: auto"
             >
@@ -194,6 +194,19 @@
 
           </aside>
         </section>
+
+        <!-- ADX 广告代码 - 2 -->
+        <div
+          style="margin: 16px 0; display: flex; justify-content: center; max-width: 100%; overflow-x: auto"
+        >
+          <ins
+            class="adsbygoogle"
+            style="display: inline-block; width: 970px; max-width: 100%; height: 90px"
+            data-ad-client="ca-pub-9435047454967498"
+            data-ad-slot="gimjo-ban01"
+            data-tag-src="gamtg"
+          ></ins>
+        </div>
 
         <section id="games" class="section-games">
           <h2 class="section-title">More Games</h2>
@@ -478,12 +491,22 @@ const loadAds = () => {
   }
 }
 
+// More Games 上方横幅 gimjo-ban01（与页面中第三个 adsbygoogle 顺序对应）
+const loadMoreGamesAboveBan01 = () => {
+  try {
+    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+  } catch (e) {
+    console.error('AdSense direct (above More Games, gimjo-ban01) push failed:', e)
+  }
+}
+
 onMounted(async () => {
   initializeGame()
 
   await nextTick()
-  loadHotGamesAboveDirectAd()
   loadAds()
+  loadHotGamesAboveDirectAd()
+  loadMoreGamesAboveBan01()
 })
 
 onUnmounted(() => {
