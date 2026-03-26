@@ -63,7 +63,7 @@
     });
   </script>
 
-  <!-- GAM：gpt.js 只加载一次；两个版位在同一队列内注册后只 enableServices 一次 -->
+  <!-- GAM：gpt.js 只加载一次；多版位同一队列注册，只 enableServices 一次 -->
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
   <script>
     window.googletag = window.googletag || { cmd: [] };
@@ -81,6 +81,12 @@
         'div-gpt-ad-1774518708341-0'
       );
       if (ban01) ban01.addService(pubads);
+      var ban1 = googletag.defineSlot(
+        '/23346398271/ban1',
+        [300, 250],
+        'div-gpt-ad-1774519660057-0'
+      );
+      if (ban1) ban1.addService(pubads);
       pubads.enableSingleRequest();
       googletag.enableServices();
     });

@@ -162,6 +162,13 @@
             </section>
           </div>
 
+           <!-- /23346398271/ban1 — 300×250，More Games 上方 -->
+        <div
+          ref="gptBan1MoreGamesAboveRoot"
+          id="div-gpt-ad-1774519660057-0"
+          style="min-width: 300px; min-height: 250px"
+        ></div>
+
           <aside class="comments-sidebar">
             <!-- New Games 板块 -->
             <section v-if="newGames.length > 0" class="new-games-section">
@@ -191,6 +198,8 @@
             ></div>
           </aside>
         </section>
+
+       
 
         <section id="games" class="section-games">
           <h2 class="section-title">More Games</h2>
@@ -482,6 +491,19 @@ const mountGptNewGamesBelowDisplay = () => {
   root.appendChild(s)
 }
 
+// GAM：/23346398271/ban1 — 300×250
+const GPT_BAN1_DIV_ID = 'div-gpt-ad-1774519660057-0'
+const gptBan1MoreGamesAboveRoot = ref(null)
+
+const mountGptBan1Display = () => {
+  const root = gptBan1MoreGamesAboveRoot.value
+  if (!root || root.querySelector(`script[data-gpt-inline="${GPT_BAN1_DIV_ID}"]`)) return
+  const s = document.createElement('script')
+  s.setAttribute('data-gpt-inline', GPT_BAN1_DIV_ID)
+  s.textContent = `googletag.cmd.push(function () { googletag.display('${GPT_BAN1_DIV_ID}'); });`
+  root.appendChild(s)
+}
+
 // 谷歌 ads 侧栏
 const loadAds = () => {
   try {
@@ -498,6 +520,7 @@ onMounted(async () => {
   nextTick(() => {
     mountGptHotGamesAboveDisplay()
     mountGptNewGamesBelowDisplay()
+    mountGptBan1Display()
   })
   loadAds()
 })
