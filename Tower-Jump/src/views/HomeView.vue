@@ -183,6 +183,12 @@
               </div>
             </section>
 
+            <!-- /23346398271/ca-pub-9435047454967498-tag/gimjo-ban01 — New Games 下方（右侧栏） -->
+            <div
+              ref="gptNewGamesBelowRoot"
+              id="div-gpt-ad-1774518708341-0"
+              style="min-width: 300px; min-height: 250px"
+            ></div>
           </aside>
         </section>
 
@@ -463,6 +469,19 @@ const mountGptHotGamesAboveDisplay = () => {
   root.appendChild(s)
 }
 
+// GAM：右侧 New Games 下方 300×600 / 300×250
+const GPT_NEW_GAMES_BELOW_DIV_ID = 'div-gpt-ad-1774518708341-0'
+const gptNewGamesBelowRoot = ref(null)
+
+const mountGptNewGamesBelowDisplay = () => {
+  const root = gptNewGamesBelowRoot.value
+  if (!root || root.querySelector(`script[data-gpt-inline="${GPT_NEW_GAMES_BELOW_DIV_ID}"]`)) return
+  const s = document.createElement('script')
+  s.setAttribute('data-gpt-inline', GPT_NEW_GAMES_BELOW_DIV_ID)
+  s.textContent = `googletag.cmd.push(function () { googletag.display('${GPT_NEW_GAMES_BELOW_DIV_ID}'); });`
+  root.appendChild(s)
+}
+
 // 谷歌 ads 侧栏
 const loadAds = () => {
   try {
@@ -478,6 +497,7 @@ onMounted(async () => {
   await nextTick()
   nextTick(() => {
     mountGptHotGamesAboveDisplay()
+    mountGptNewGamesBelowDisplay()
   })
   loadAds()
 })

@@ -63,15 +63,25 @@
     });
   </script>
 
-  <!-- GAM：/23346398271/ca-pub-9435047454967498-tag（fluid，Hot Games 上方） -->
+  <!-- GAM：gpt.js 只加载一次；两个版位在同一队列内注册后只 enableServices 一次 -->
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
   <script>
     window.googletag = window.googletag || { cmd: [] };
     googletag.cmd.push(function () {
-      googletag
-        .defineSlot('/23346398271/ca-pub-9435047454967498-tag', ['fluid'], 'div-gpt-ad-1774516777032-0')
-        .addService(googletag.pubads());
-      googletag.pubads().enableSingleRequest();
+      var pubads = googletag.pubads();
+      var fluid = googletag.defineSlot(
+        '/23346398271/ca-pub-9435047454967498-tag',
+        ['fluid'],
+        'div-gpt-ad-1774516777032-0'
+      );
+      if (fluid) fluid.addService(pubads);
+      var ban01 = googletag.defineSlot(
+        '/23346398271/ca-pub-9435047454967498-tag/gimjo-ban01',
+        [[300, 600], [300, 250]],
+        'div-gpt-ad-1774518708341-0'
+      );
+      if (ban01) ban01.addService(pubads);
+      pubads.enableSingleRequest();
       googletag.enableServices();
     });
   </script>
