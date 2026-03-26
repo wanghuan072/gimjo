@@ -122,8 +122,12 @@
               </div>
             </section>
 
-            <!-- /23346398271/ban1 — 与 index.html 中第一个 defineSlot 对应 -->
-            <div id="div-gpt-ad-1774496814316-0" style="min-width: 320px; min-height: 50px"></div>
+            <!-- GAM 位1 body：/23346398271/ban1 — 与 index.html 第一段独立对应 -->
+            <div
+              ref="gptBannerRoot"
+              id="div-gpt-ad-1774496814316-0"
+              style="min-width: 320px; min-height: 50px"
+            ></div>
 
             <!-- Hot Games 板块 -->
             <section v-if="hotGames.length > 0" class="hot-games-section">
@@ -186,8 +190,12 @@
           </aside>
         </section>
 
-        <!-- /23346398271/ban1/ban1.1 — 与 index.html 中第二个 defineSlot 对应 -->
-        <div id="div-gpt-ad-1774506633150-0" style="min-width: 970px; min-height: 250px"></div>
+        <!-- GAM 位2 body：/23346398271/ban1/ban1.1 — 与 index.html 第二段独立对应 -->
+        <div
+          ref="gptLeaderboardRoot"
+          id="div-gpt-ad-1774506633150-0"
+          style="min-width: 970px; min-height: 250px"
+        ></div>
 
         <section id="games" class="section-games">
           <h2 class="section-title">More Games</h2>
@@ -453,24 +461,30 @@ watch(
   }
 )
 
-// GAM：head 里已 defineSlot + enableServices；挂载后在同一 cmd 队列里 display 全部版位（SRA 下比拆成多个内联 script 更稳）
-const GPT_DIV_IDS = ['div-gpt-ad-1774496814316-0', 'div-gpt-ad-1774506633150-0']
+// ---------- GAM 广告位 1（独立：不共用函数/常量，与位 2 互不影响）----------
+const gptBannerRoot = ref(null)
 
-const mountGptDisplays = () => {
-  const googletag = window.googletag
-  if (!googletag?.cmd) return
-  googletag.cmd.push(function () {
-    for (const id of GPT_DIV_IDS) {
-      const el = document.getElementById(id)
-      if (!el || el.dataset.gptDisplayed === '1') continue
-      try {
-        googletag.display(id)
-        el.dataset.gptDisplayed = '1'
-      } catch (e) {
-        console.warn('[GPT] display failed:', id, e)
-      }
-    }
-  })
+const mountGptBan1BodyScript = () => {
+  const root = gptBannerRoot.value
+  if (!root || root.querySelector('script[data-gam-slot="ban1"]')) return
+  const s = document.createElement('script')
+  s.setAttribute('data-gam-slot', 'ban1')
+  s.textContent =
+    "googletag.cmd.push(function () { googletag.display('div-gpt-ad-1774496814316-0'); });"
+  root.appendChild(s)
+}
+
+// ---------- GAM 广告位 2（独立：与位 1 代码重复是故意的，便于分别拷贝、修改）----------
+const gptLeaderboardRoot = ref(null)
+
+const mountGptBan11BodyScript = () => {
+  const root = gptLeaderboardRoot.value
+  if (!root || root.querySelector('script[data-gam-slot="ban1-1"]')) return
+  const s = document.createElement('script')
+  s.setAttribute('data-gam-slot', 'ban1-1')
+  s.textContent =
+    "googletag.cmd.push(function () { googletag.display('div-gpt-ad-1774506633150-0'); });"
+  root.appendChild(s)
 }
 
 // 
@@ -488,9 +502,12 @@ onMounted(async () => {
   initializeGame()
 
 
-  // 加载 GAM：等 DOM 上存在对应 id 后再 display（不依赖往 div 里插 script，避免执行时机问题）
+  // GAM：两个版位各自注入 body 脚本，互不调用同一封装
   nextTick(() => {
-    mountGptDisplays()
+    nextTick(() => {
+      mountGptBan1BodyScript()
+      mountGptBan11BodyScript()
+    })
   })
 
   loadAds()

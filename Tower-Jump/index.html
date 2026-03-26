@@ -63,26 +63,28 @@
     });
   </script>
 
-  <!-- GAM：gpt.js 只加载一次；所有广告位在同一 cmd 队列里 defineSlot，enableServices 只调用一次 -->
+  <!-- ========== GAM 广告位 1（独立一段，与后台「第一段」head 代码一致，不与位 2 合并）========== -->
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
   <script>
     window.googletag = window.googletag || { cmd: [] };
     googletag.cmd.push(function () {
-      var pubads = googletag.pubads();
-      // defineSlot 失败时返回 null，链式 .addService 会抛错并导致后续版位全部不可用，需分别判断
-      var slotBanner = googletag.defineSlot(
-        '/23346398271/ban1',
-        [[320, 50], [970, 90]],
-        'div-gpt-ad-1774496814316-0'
-      );
-      if (slotBanner) slotBanner.addService(pubads);
-      var slotLb = googletag.defineSlot(
-        '/23346398271/ban1/ban1.1',
-        [970, 250],
-        'div-gpt-ad-1774506633150-0'
-      );
-      if (slotLb) slotLb.addService(pubads);
-      pubads.enableSingleRequest();
+      googletag
+        .defineSlot('/23346398271/ban1', [[320, 50], [970, 90]], 'div-gpt-ad-1774496814316-0')
+        .addService(googletag.pubads());
+      googletag.pubads().enableSingleRequest();
+      googletag.enableServices();
+    });
+  </script>
+
+  <!-- ========== GAM 广告位 2（独立一段，与后台「第二段」head 代码一致；gpt.js 重复加载由浏览器缓存，逻辑上与位 1 分开维护）========== -->
+  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
+  <script>
+    window.googletag = window.googletag || { cmd: [] };
+    googletag.cmd.push(function () {
+      googletag
+        .defineSlot('/23346398271/ban1/ban1.1', [970, 250], 'div-gpt-ad-1774506633150-0')
+        .addService(googletag.pubads());
+      googletag.pubads().enableSingleRequest();
       googletag.enableServices();
     });
   </script>
