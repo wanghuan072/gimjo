@@ -123,11 +123,7 @@
             </section>
 
             <!-- /23346398271/ban1 — 与 index.html 中第一个 defineSlot 对应 -->
-            <div
-              ref="gptBannerRoot"
-              id="div-gpt-ad-1774496814316-0"
-              style="min-width: 320px; min-height: 50px"
-            ></div>
+            <div id="div-gpt-ad-1774496814316-0" style="min-width: 320px; min-height: 50px"></div>
 
             <!-- Hot Games 板块 -->
             <section v-if="hotGames.length > 0" class="hot-games-section">
@@ -191,11 +187,7 @@
         </section>
 
         <!-- /23346398271/ban1/ban1.1 — 与 index.html 中第二个 defineSlot 对应 -->
-        <div
-          ref="gptLeaderboardRoot"
-          id="div-gpt-ad-1774506633150-0"
-          style="min-width: 970px; min-height: 250px"
-        ></div>
+        <div id="div-gpt-ad-1774506633150-0" style="min-width: 970px; min-height: 250px"></div>
 
         <section id="games" class="section-games">
           <h2 class="section-title">More Games</h2>
@@ -461,16 +453,24 @@ watch(
   }
 )
 
-// GAM：head 里已 defineSlot + enableServices；此处仅在对应 div 内注入 display（等同官方 body 片段）
-const gptBannerRoot = ref(null)
-const gptLeaderboardRoot = ref(null)
+// GAM：head 里已 defineSlot + enableServices；挂载后在同一 cmd 队列里 display 全部版位（SRA 下比拆成多个内联 script 更稳）
+const GPT_DIV_IDS = ['div-gpt-ad-1774496814316-0', 'div-gpt-ad-1774506633150-0']
 
-const mountGptDisplayInRoot = (root, divId) => {
-  if (!root || root.querySelector(`script[data-gpt-inline="${divId}"]`)) return
-  const s = document.createElement('script')
-  s.setAttribute('data-gpt-inline', divId)
-  s.textContent = `googletag.cmd.push(function () { googletag.display('${divId}'); });`
-  root.appendChild(s)
+const mountGptDisplays = () => {
+  const googletag = window.googletag
+  if (!googletag?.cmd) return
+  googletag.cmd.push(function () {
+    for (const id of GPT_DIV_IDS) {
+      const el = document.getElementById(id)
+      if (!el || el.dataset.gptDisplayed === '1') continue
+      try {
+        googletag.display(id)
+        el.dataset.gptDisplayed = '1'
+      } catch (e) {
+        console.warn('[GPT] display failed:', id, e)
+      }
+    }
+  })
 }
 
 // 
@@ -488,10 +488,9 @@ onMounted(async () => {
   initializeGame()
 
 
-  // 加载 GAM：两个版位各自注入 display，避免重复 ref 指向同一 DOM
+  // 加载 GAM：等 DOM 上存在对应 id 后再 display（不依赖往 div 里插 script，避免执行时机问题）
   nextTick(() => {
-    mountGptDisplayInRoot(gptBannerRoot.value, 'div-gpt-ad-1774496814316-0')
-    mountGptDisplayInRoot(gptLeaderboardRoot.value, 'div-gpt-ad-1774506633150-0')
+    mountGptDisplays()
   })
 
   loadAds()

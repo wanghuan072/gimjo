@@ -68,13 +68,21 @@
   <script>
     window.googletag = window.googletag || { cmd: [] };
     googletag.cmd.push(function () {
-      googletag
-        .defineSlot('/23346398271/ban1', [[320, 50], [970, 90]], 'div-gpt-ad-1774496814316-0')
-        .addService(googletag.pubads());
-      googletag
-        .defineSlot('/23346398271/ban1/ban1.1', [970, 250], 'div-gpt-ad-1774506633150-0')
-        .addService(googletag.pubads());
-      googletag.pubads().enableSingleRequest();
+      var pubads = googletag.pubads();
+      // defineSlot 失败时返回 null，链式 .addService 会抛错并导致后续版位全部不可用，需分别判断
+      var slotBanner = googletag.defineSlot(
+        '/23346398271/ban1',
+        [[320, 50], [970, 90]],
+        'div-gpt-ad-1774496814316-0'
+      );
+      if (slotBanner) slotBanner.addService(pubads);
+      var slotLb = googletag.defineSlot(
+        '/23346398271/ban1/ban1.1',
+        [970, 250],
+        'div-gpt-ad-1774506633150-0'
+      );
+      if (slotLb) slotLb.addService(pubads);
+      pubads.enableSingleRequest();
       googletag.enableServices();
     });
   </script>
