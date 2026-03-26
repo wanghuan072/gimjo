@@ -162,14 +162,16 @@
             </section>
           </div>
 
-           <!-- /23346398271/ban1 — 300×250，More Games 上方 -->
+          <aside class="comments-sidebar">
+
+              <!-- /23346398271/ban1 — 300×250，More Games 上方 -->
         <div
           ref="gptBan1MoreGamesAboveRoot"
           id="div-gpt-ad-1774519660057-0"
           style="min-width: 300px; min-height: 250px"
         ></div>
 
-          <aside class="comments-sidebar">
+        
             <!-- New Games 板块 -->
             <section v-if="newGames.length > 0" class="new-games-section">
               <h3 class="panel-title">New Games</h3>
@@ -199,7 +201,7 @@
           </aside>
         </section>
 
-       
+      
 
         <section id="games" class="section-games">
           <h2 class="section-title">More Games</h2>
