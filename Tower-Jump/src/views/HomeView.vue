@@ -122,6 +122,18 @@
               </div>
             </section>
 
+            <!-- AdSense Direct：在 Hot Games 上方（与后台代码一致） -->
+            <div
+              style="margin: 16px 0; display: flex; justify-content: center; max-width: 100%; overflow-x: auto"
+            >
+              <ins
+                class="adsbygoogle"
+                style="display: inline-block; width: 970px; max-width: 100%; height: 250px"
+                data-ad-client="ca-pub-9435047454967498"
+                data-tag-src="gamtg"
+              ></ins>
+            </div>
+
             <!-- Hot Games 板块 -->
             <section v-if="hotGames.length > 0" class="hot-games-section">
               <h2 class="section-title">Hot Games</h2>
@@ -448,7 +460,16 @@ watch(
 )
 
 
-// 首页广告位：
+// Hot Games 上方：adsbygoogle_direct（DOM 中第一个 adsbygoogle，须最先 push）
+const loadHotGamesAboveDirectAd = () => {
+  try {
+    ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+  } catch (e) {
+    console.error('AdSense direct (above Hot Games) push failed:', e)
+  }
+}
+
+// 侧栏等：沿用 adsbygoogle.js 的第二个 ins，第二次 push
 const loadAds = () => {
   try {
     ;(window.adsbygoogle = window.adsbygoogle || []).push({})
@@ -458,9 +479,10 @@ const loadAds = () => {
 }
 
 onMounted(async () => {
-  // 初始化游戏
   initializeGame()
 
+  await nextTick()
+  loadHotGamesAboveDirectAd()
   loadAds()
 })
 
