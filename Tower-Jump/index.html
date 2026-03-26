@@ -69,13 +69,15 @@
     window.googletag = window.googletag || { cmd: [] };
     googletag.cmd.push(function () {
       var pubads = googletag.pubads();
+
+      // 
       var fluid = googletag.defineSlot(
         '/23346398271/ca-pub-9435047454967498-tag',
         ['fluid'],
         'div-gpt-ad-1774516777032-0'
       );
       if (fluid) fluid.addService(pubads);
-      
+
       // 
       var ban01 = googletag.defineSlot(
         '/23346398271/ca-pub-9435047454967498-tag/gimjo-ban01',
@@ -85,12 +87,12 @@
       if (ban01) ban01.addService(pubads);
        
       // 
-      var ban1 = googletag.defineSlot(
-        '/23346398271/ban1',
-        [300, 250],
-        'div-gpt-ad-1774519660057-0'
-      );
-      if (ban1) ban1.addService(pubads);
+      // var ban1 = googletag.defineSlot(
+      //   '/23346398271/ban1',
+      //   [300, 250],
+      //   'div-gpt-ad-1774519660057-0'
+      // );
+      // if (ban1) ban1.addService(pubads);
       // 
      
       pubads.enableSingleRequest();
