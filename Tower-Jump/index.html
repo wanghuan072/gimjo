@@ -63,12 +63,17 @@
     });
   </script>
 
-  <!-- 广告代码 -->
+  <!-- GAM：gpt.js 只加载一次；所有广告位在同一 cmd 队列里 defineSlot，enableServices 只调用一次 -->
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
   <script>
     window.googletag = window.googletag || { cmd: [] };
     googletag.cmd.push(function () {
-      googletag.defineSlot('/23346398271/ban1', [[320, 50], [970, 90]], 'div-gpt-ad-1774496814316-0').addService(googletag.pubads());
+      googletag
+        .defineSlot('/23346398271/ban1', [[320, 50], [970, 90]], 'div-gpt-ad-1774496814316-0')
+        .addService(googletag.pubads());
+      googletag
+        .defineSlot('/23346398271/ban1/ban1.1', [970, 250], 'div-gpt-ad-1774506633150-0')
+        .addService(googletag.pubads());
       googletag.pubads().enableSingleRequest();
       googletag.enableServices();
     });

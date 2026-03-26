@@ -122,11 +122,12 @@
               </div>
             </section>
 
+            <!-- /23346398271/ban1 — 与 index.html 中第一个 defineSlot 对应 -->
             <div
-            ref="gptBannerRoot"
-            id="div-gpt-ad-1774496814316-0"
-            style="min-width: 320px; min-height: 50px"
-          ></div>
+              ref="gptBannerRoot"
+              id="div-gpt-ad-1774496814316-0"
+              style="min-width: 320px; min-height: 50px"
+            ></div>
 
             <!-- Hot Games 板块 -->
             <section v-if="hotGames.length > 0" class="hot-games-section">
@@ -188,6 +189,13 @@
 
           </aside>
         </section>
+
+        <!-- /23346398271/ban1/ban1.1 — 与 index.html 中第二个 defineSlot 对应 -->
+        <div
+          ref="gptLeaderboardRoot"
+          id="div-gpt-ad-1774506633150-0"
+          style="min-width: 970px; min-height: 250px"
+        ></div>
 
         <section id="games" class="section-games">
           <h2 class="section-title">More Games</h2>
@@ -453,16 +461,15 @@ watch(
   }
 )
 
-// 广告代码
+// GAM：head 里已 defineSlot + enableServices；此处仅在对应 div 内注入 display（等同官方 body 片段）
 const gptBannerRoot = ref(null)
-const GPT_SLOT_DIV_ID = 'div-gpt-ad-1774496814316-0'
+const gptLeaderboardRoot = ref(null)
 
-const mountGptDisplayScriptInsideDiv = () => {
-  const root = gptBannerRoot.value
-  if (!root || root.querySelector('script[data-gpt-inline]')) return
+const mountGptDisplayInRoot = (root, divId) => {
+  if (!root || root.querySelector(`script[data-gpt-inline="${divId}"]`)) return
   const s = document.createElement('script')
-  s.setAttribute('data-gpt-inline', '1')
-  s.textContent = `googletag.cmd.push(function () { googletag.display('${GPT_SLOT_DIV_ID}'); });`
+  s.setAttribute('data-gpt-inline', divId)
+  s.textContent = `googletag.cmd.push(function () { googletag.display('${divId}'); });`
   root.appendChild(s)
 }
 
@@ -481,9 +488,10 @@ onMounted(async () => {
   initializeGame()
 
 
-  // 加载广告
+  // 加载 GAM：两个版位各自注入 display，避免重复 ref 指向同一 DOM
   nextTick(() => {
-    mountGptDisplayScriptInsideDiv()
+    mountGptDisplayInRoot(gptBannerRoot.value, 'div-gpt-ad-1774496814316-0')
+    mountGptDisplayInRoot(gptLeaderboardRoot.value, 'div-gpt-ad-1774506633150-0')
   })
 
   loadAds()
