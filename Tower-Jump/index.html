@@ -80,13 +80,15 @@
         [[300, 600], [300, 250]],
         'div-gpt-ad-1774518708341-0'
       );
-      // if (ban01) ban01.addService(pubads);
-      // var ban1 = googletag.defineSlot(
-      //   '/23346398271/ban1',
-      //   [300, 250],
-      //   'div-gpt-ad-1774519660057-0'
-      // );
+      if (ban01) ban01.addService(pubads);
+      /* 暂时停用：ban1 300×250
+      var ban1 = googletag.defineSlot(
+        '/23346398271/ban1',
+        [300, 250],
+        'div-gpt-ad-1774519660057-0'
+      );
       if (ban1) ban1.addService(pubads);
+      */
       pubads.enableSingleRequest();
       googletag.enableServices();
     });
