@@ -122,6 +122,12 @@
               </div>
             </section>
 
+            <div
+            ref="gptBannerRoot"
+            id="div-gpt-ad-1774496814316-0"
+            style="min-width: 320px; min-height: 50px"
+          ></div>
+
             <!-- Hot Games 板块 -->
             <section v-if="hotGames.length > 0" class="hot-games-section">
               <h2 class="section-title">Hot Games</h2>
@@ -436,9 +442,27 @@ watch(
   }
 )
 
+// 广告代码
+const gptBannerRoot = ref(null)
+const GPT_SLOT_DIV_ID = 'div-gpt-ad-1774496814316-0'
+
+const mountGptDisplayScriptInsideDiv = () => {
+  const root = gptBannerRoot.value
+  if (!root || root.querySelector('script[data-gpt-inline]')) return
+  const s = document.createElement('script')
+  s.setAttribute('data-gpt-inline', '1')
+  s.textContent = `googletag.cmd.push(function () { googletag.display('${GPT_SLOT_DIV_ID}'); });`
+  root.appendChild(s)
+}
+
 onMounted(async () => {
   // 初始化游戏
   initializeGame()
+
+  // 加载广告
+  nextTick(() => {
+    mountGptDisplayScriptInsideDiv()
+  })
 })
 
 onUnmounted(() => {
