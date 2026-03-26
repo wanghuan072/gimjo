@@ -163,13 +163,13 @@
           </div>
 
           <aside class="comments-sidebar">
-            <!-- 暂时停用：GAM ban1 /23346398271，div-gpt-ad-1774519660057-0
+            <!--  -->
             <div
               ref="gptBan1MoreGamesAboveRoot"
               id="div-gpt-ad-1774519660057-0"
               style="min-width: 300px; min-height: 250px"
             ></div>
-            -->
+           
 
             <!-- New Games 板块 -->
             <section v-if="newGames.length > 0" class="new-games-section">
@@ -490,7 +490,7 @@ const mountGptNewGamesBelowDisplay = () => {
   root.appendChild(s)
 }
 
-/* 暂时停用：ban1 广告 display 注入（与 index.html defineSlot 一并恢复）
+ // 暂时停用：ban1 广告 display 注入（与 index.html defineSlot 一并恢复）
 const GPT_BAN1_DIV_ID = 'div-gpt-ad-1774519660057-0'
 const gptBan1MoreGamesAboveRoot = ref(null)
 
@@ -502,7 +502,7 @@ const mountGptBan1Display = () => {
   s.textContent = `googletag.cmd.push(function () { googletag.display('${GPT_BAN1_DIV_ID}'); });`
   root.appendChild(s)
 }
-*/
+
 
 // 谷歌 ads 侧栏
 const loadAds = () => {
@@ -520,7 +520,7 @@ onMounted(async () => {
   nextTick(() => {
     mountGptHotGamesAboveDisplay()
     mountGptNewGamesBelowDisplay()
-    // mountGptBan1Display() // 暂时停用 ban1
+    mountGptBan1Display() // 暂时停用 ban1
   })
   loadAds()
 })
